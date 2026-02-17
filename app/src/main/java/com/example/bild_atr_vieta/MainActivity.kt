@@ -22,10 +22,11 @@ import com.google.android.gms.location.LocationServices
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.viewpager2.widget.ViewPager2
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var imageView: ImageView
+    private lateinit var viewPager: ViewPager2
     private lateinit var currentPhotoPath: String
     private var currentLocation: Location? = null
 
@@ -36,16 +37,20 @@ class MainActivity : AppCompatActivity() {
     private val takePicture =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
-                val bitmap = BitmapFactory.decodeFile(currentPhotoPath)
-                imageView.setImageBitmap(bitmap)
+                loadImages()
             }
         }
+    private fun loadImages() {
+        val dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        val files = dir?.listFiles()?.toList() ?: emptyList()
+        viewPager.adapter = ImagePagerAdapter(files)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        imageView = findViewById(R.id.imageView)
+        viewPager = findViewById(R.id.viewPager)
         val btnTakePhoto = findViewById<Button>(R.id.btnTakePhoto)
         val btnShowMap = findViewById<Button>(R.id.btnShowMap)
 
@@ -155,6 +160,6 @@ class MainActivity : AppCompatActivity() {
     private fun deleteAllImages() {
         val dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         dir?.listFiles()?.forEach { it.delete() }
-        imageView.setImageDrawable(null)
+//        imageView.setImageDrawable(null)
     }
 }

@@ -16,6 +16,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import android.view.Menu
 import android.view.MenuItem
+import com.google.firebase.Firebase
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.analytics
+import com.google.firebase.analytics.logEvent
+
 
 class AudioActivity : AppCompatActivity() {
 
@@ -24,6 +29,8 @@ class AudioActivity : AppCompatActivity() {
     private lateinit var listView: ListView
     private val recordings = mutableListOf<String>()
     private var isRecording = false
+    private lateinit var analytics: FirebaseAnalytics
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_audio)
@@ -38,7 +45,7 @@ class AudioActivity : AppCompatActivity() {
                 200
             )
         }
-
+        analytics = Firebase.analytics
         val btnRecord = findViewById<Button>(R.id.btnRecord)
         listView = findViewById(R.id.listView)
 
@@ -61,7 +68,11 @@ class AudioActivity : AppCompatActivity() {
     }
 
     private fun startRecording() {
-
+        analytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM) {
+            param(FirebaseAnalytics.Param.ITEM_ID, "start");
+            param(FirebaseAnalytics.Param.ITEM_NAME, "stop");
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        }
         val dir = getExternalFilesDir(Environment.DIRECTORY_MUSIC)
         outputFile = "${dir?.absolutePath}/record_${System.currentTimeMillis()}.3gp"
 
@@ -96,7 +107,11 @@ class AudioActivity : AppCompatActivity() {
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
+        analytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM) {
+            param(FirebaseAnalytics.Param.ITEM_ID, "ok");
+            param(FirebaseAnalytics.Param.ITEM_NAME, "bet");
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "image");
+        }
         when (item.itemId) {
 
             R.id.menu_image -> {

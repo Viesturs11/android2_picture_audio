@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "178723009546",
+    "project_id": "bildeaudio",
+    "storage_bucket": "bildeaudio.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178723009546:android:6c6c57564d6ea2cca8dbf3",
+        "android_client_info": {
+          "package_name": "com.example.bild_atr_vieta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtnqHEXkqhvz5RjpR64HnjLT7BgUW3l4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
