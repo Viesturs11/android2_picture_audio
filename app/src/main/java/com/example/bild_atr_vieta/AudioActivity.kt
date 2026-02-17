@@ -88,7 +88,11 @@ class AudioActivity : AppCompatActivity() {
         Toast.makeText(this, "Recording...", Toast.LENGTH_SHORT).show()
     }
     private fun stopRecording() {
-
+        analytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM) {
+            param(FirebaseAnalytics.Param.ITEM_ID, "rec");
+            param(FirebaseAnalytics.Param.ITEM_NAME, "stop2");
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "image1");
+        }
         recorder.stop()
         recorder.release()
 
@@ -103,6 +107,11 @@ class AudioActivity : AppCompatActivity() {
         Toast.makeText(this, "Saved", Toast.LENGTH_SHORT).show()
     }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        analytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM) {
+            param(FirebaseAnalytics.Param.ITEM_ID, "opt");
+            param(FirebaseAnalytics.Param.ITEM_NAME, "optm");
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "image2");
+        }
         menuInflater.inflate(R.menu.audio_menu, menu)
         return true
     }
@@ -126,7 +135,11 @@ class AudioActivity : AppCompatActivity() {
         return true
     }
     private fun deleteAllRecordings() {
-
+        analytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM) {
+            param(FirebaseAnalytics.Param.ITEM_ID, "del");
+            param(FirebaseAnalytics.Param.ITEM_NAME, "undo");
+            param(FirebaseAnalytics.Param.CONTENT_TYPE, "image3");
+        }
         val dir = getExternalFilesDir(Environment.DIRECTORY_MUSIC)
 
         dir?.listFiles()?.forEach { file ->
